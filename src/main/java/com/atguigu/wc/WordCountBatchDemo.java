@@ -42,7 +42,7 @@ public class WordCountBatchDemo {
         UnsortedGrouping<Tuple2<String, Integer>> wordAndOneGroupby = wordAndOne.groupBy(0);
 
         // TODO 5.各分组内聚合
-        AggregateOperator<Tuple2<String, Integer>> sum = wordAndOneGroupby.sum(1); // 1是位置，表示第二个元素
+        AggregateOperator<Tuple2<String, Integer>> sum = wordAndOneGroupby.sum(1); // 1是位置，表示第二个元素 是下标的意思
 
         // TODO 6.输出
         sum.print();
