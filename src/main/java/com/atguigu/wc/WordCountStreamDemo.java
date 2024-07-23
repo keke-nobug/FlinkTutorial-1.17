@@ -15,6 +15,9 @@ import org.apache.flink.util.Collector;
  * @author cjp
  * @version 1.0
  */
+// 问题：如果出现找不到类异常：java.lang.NoClassDefFoundError:xxx
+// 当代码丢到集群上运行时有些依赖是已经有了的所以不需要依赖，通常我们会在本地配置成scope为provided的形式,所以idea也要配合 做相应调整。
+// run -》 edit configurations -》 applicantion =》 add dependencies with “provided” scope
 public class WordCountStreamDemo {
     public static void main(String[] args) throws Exception {
         // TODO 1.创建执行环境
