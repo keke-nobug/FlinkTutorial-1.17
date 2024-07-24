@@ -42,8 +42,16 @@ public class WordCountStreamDemo {
                         }
                     }
                 });
-        // TODO 3.2 分组
+
+        // 得到每行数据   hello java
+        //              hello flink
+        //              hello world
+        // lineDS.print();
+        // System.out.println("-------------");
+
+        // TODO 3.2 分组 keyBy 算子
         KeyedStream<Tuple2<String, Integer>, String> wordAndOneKS = wordAndOneDS.keyBy(
+                // 参数 IN： 输入类型   KEY： key的类型
                 new KeySelector<Tuple2<String, Integer>, String>() {
                     @Override
                     public String getKey(Tuple2<String, Integer> value) throws Exception {

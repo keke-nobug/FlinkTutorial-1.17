@@ -42,6 +42,9 @@ public class WordCountStreamUnboundedDemo {
                         }
                 )
                 .setParallelism(2)
+                // 如果不写这个 使用lambda会报错
+                // 对于flatMap里传入的Lambda表达式，系统只能推断出返回的是Tuple2类型，而无法得到Tuple2<String, Long>。
+                // 只有显式地告诉系统当前的返回类型，才能正确地解析出完整数据。
                 .returns(Types.TUPLE(Types.STRING,Types.INT))
 //                .returns(new TypeHint<Tuple2<String, Integer>>() {})
                 .keyBy(value -> value.f0)

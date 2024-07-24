@@ -20,10 +20,17 @@ public class WordCountBatchDemo {
         // TODO 1. 创建执行环境
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
-        // TODO 2.读取数据：从文件中读取
+        // TODO 2.读取数据：从文件中读取 相对路径是 工程根路径
         DataSource<String> lineDS = env.readTextFile("input/word.txt");
 
-        // TODO 3.切分、转换 （word，1）
+        // 得到每行数据   hello java
+        //              hello flink
+        //              hello world
+        // lineDS.print();
+        // System.out.println("-------------");
+
+        // TODO 3.切分、转换 算子 （word，1）
+        // 输入类型 String，输出类型 Tuple2<String, Integer>
         FlatMapOperator<String, Tuple2<String, Integer>> wordAndOne = lineDS.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
             @Override
             public void flatMap(String value, Collector<Tuple2<String, Integer>> out) throws Exception {
@@ -38,7 +45,7 @@ public class WordCountBatchDemo {
             }
         });
 
-        // TODO 4.按照 word 分组
+        // TODO 4.按照 word 分组, 传入的参数是索引 按二元组的位置下标聚合
         UnsortedGrouping<Tuple2<String, Integer>> wordAndOneGroupby = wordAndOne.groupBy(0);
 
         // TODO 5.各分组内聚合
